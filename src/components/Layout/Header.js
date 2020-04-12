@@ -58,7 +58,7 @@ class Header extends Component {
           <Grid item>
           {!this.state.isUserLoggedIn && (
             <GoogleLogin
-              clientId="156573644182-2u91vb6240l0ld426efbeccbibjdigat.apps.googleusercontent.com" 
+              clientId="ENTERHERE" 
               buttonText="Login"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
