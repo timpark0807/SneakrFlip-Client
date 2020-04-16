@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import InventoryDialog from './InventoryDialog.js'
-// import InventoryTable from './InventoryTable.js'
+import InventoryTable from './InventoryTable.js'
 
 const styles = (theme) => ({
   paper: {
@@ -59,6 +59,7 @@ function InventoryMain(props) {
           <Grid container spacing={2} alignItems="center">
             <Grid item xs>
               <Typography color="textSecondary" >
+
                 Inventory Manager
               </Typography>
             </Grid>
@@ -79,7 +80,7 @@ function InventoryMain(props) {
       {/* Body */}
       <div className={classes.contentWrapper}>
         <Typography color="textSecondary" align="center"></Typography>
-        {/* <PropertyTable /> */}
+        <InventoryTable />
       </div>
     </Paper>
   );
