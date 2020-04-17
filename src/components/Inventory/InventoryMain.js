@@ -12,6 +12,8 @@ import InventoryDialog from './InventoryDialog.js'
 import InventoryTable from './InventoryTable.js'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const styles = (theme) => ({
   paper: {
@@ -36,12 +38,17 @@ const styles = (theme) => ({
   },
 });
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function InventoryMain(props) {
 
   const [posts, setPosts] = React.useState([])
   const { classes } = props;
   const [open, setOpen] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false); 
+  const [messageAlert, setMessageAlert] = React.useState(""); 
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,7 +58,14 @@ function InventoryMain(props) {
     setOpen(false);
   };
 
+  const handleOpenAlert = () => {
+    setOpenAlert(true)
+  }
       
+  const handleCloseAlert = () => {
+    setOpenAlert(false)
+  }
+
   const listItems = () => {axios.get('http://localhost:8000/api/item', {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
   .then(response =>{
       setPosts(response.data)
@@ -85,12 +99,20 @@ function InventoryMain(props) {
                     open={open}
                     handleClose={handleClose}
                     listItems={listItems}
+                    handleOpenAlert={handleOpenAlert}
+                    setMessageAlert={setMessageAlert}
                     >
               </InventoryDialog>
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
+
+      <Snackbar open={openAlert} autoHideDuration={10000} onClose={handleCloseAlert}>
+        <Alert onClose={handleCloseAlert} severity="success">
+          {messageAlert}
+        </Alert>
+      </Snackbar>
 
       {/* Body */}
       <div className={classes.contentWrapper}>
@@ -99,6 +121,8 @@ function InventoryMain(props) {
         listItems={listItems}
         posts={posts}
         setPosts={setPosts}
+        handleOpenAlert={handleOpenAlert}
+        setMessageAlert={setMessageAlert}
         />
       </div>
     </Paper>

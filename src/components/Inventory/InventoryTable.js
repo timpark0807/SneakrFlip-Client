@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InventoryDelete from './InventoryDelete.js'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
-function InventoryTable({listItems, posts, setPosts}) {
+function InventoryTable({listItems, posts, handleOpenAlert, setMessageAlert}) {
     
     const [open, setOpen] = React.useState(false)
     const [deleteID, setDeleteID] = React.useState('')
@@ -36,6 +36,8 @@ function InventoryTable({listItems, posts, setPosts}) {
     }
     
     const deleteRequest = (item_id) => {
+        setMessageAlert("The status of your item has been changed!")
+        handleOpenAlert()
         axios.post("http://localhost:8000/api/item/updatestatus", {"_id": item_id}, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
         .then(response => {
             console.log(response)
@@ -87,7 +89,10 @@ function InventoryTable({listItems, posts, setPosts}) {
                     open={open}
                     handleClose={handleClose}
                     post_id={deleteID}
-                    listItems={listItems}>
+                    listItems={listItems}
+                    handleOpenAlert={handleOpenAlert}
+                    setMessageAlert={setMessageAlert}             
+                    >
                 </InventoryDelete>
             </TableContainer>
         

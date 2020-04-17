@@ -10,10 +10,11 @@ import Cookies from 'js-cookie'
 import Divider from '@material-ui/core/Divider';
 
 
-function InventoryDelete({open, handleClose, post_id, listItems}) {
+function InventoryDelete({open, handleClose, post_id, listItems, handleOpenAlert, setMessageAlert}) {
 
     const handleDelete = (post_id) => {
-
+          setMessageAlert("Your item has been deleted!")
+          handleOpenAlert()
           axios.delete("http://localhost:8000/api/item/" + post_id, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
           .then(response => {
               listItems()

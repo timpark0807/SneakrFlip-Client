@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'js-cookie'
 
-function InventoryForm({listItems, onClose}) { 
+function InventoryForm({listItems, onClose, handleOpenAlert, setMessageAlert}) { 
 
     const [fields, setFields] = React.useState({category: '',
                                                 brand: '',
@@ -23,9 +23,14 @@ function InventoryForm({listItems, onClose}) {
     const handleSubmit = (event) => {
         Axios.post("http://localhost:8000/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
         .then(response => {
-            listItems()
             event.preventDefault()
+            setMessageAlert("Your item has been created!")
+            
             onClose()
+
+            handleOpenAlert()
+
+            listItems()
             console.log(response)
         })
         .catch(error =>{

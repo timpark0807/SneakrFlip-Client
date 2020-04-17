@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 
-function InventoryDialog({open, handleClose, listItems}) {
+function InventoryDialog({open, handleClose, listItems, handleOpenAlert, setMessageAlert}) {
 
     return (
         
@@ -45,6 +45,8 @@ function InventoryDialog({open, handleClose, listItems}) {
     <InventoryForm
     listItems={listItems}
     onClose={handleClose}
+    handleOpenAlert={handleOpenAlert}
+    setMessageAlert={setMessageAlert}
     />
     </DialogContent>
 
