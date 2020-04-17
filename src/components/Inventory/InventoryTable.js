@@ -13,9 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import InventoryDelete from './InventoryDelete.js'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
-function InventoryTable() {
+function InventoryTable({listItems, posts, setPosts}) {
     
-    const [posts, setPosts] = React.useState([])
     const [open, setOpen] = React.useState(false)
     const [deleteID, setDeleteID] = React.useState('')
 
@@ -30,15 +29,7 @@ function InventoryTable() {
     const handleClose = () => {
       setOpen(false);
     };
-    
-    const listItems = () => {axios.get('http://localhost:8000/api/item', {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
-                            .then(response =>{
-                                setPosts(response.data)
-                            })
-                            .catch(error=>{
-                                console.log(error)
-                            })
-                        }
+
 
     const handleSoldClick = (item_id) => {
         deleteRequest(item_id)
@@ -95,7 +86,8 @@ function InventoryTable() {
                 <InventoryDelete 
                     open={open}
                     handleClose={handleClose}
-                    post_id={deleteID}>
+                    post_id={deleteID}
+                    listItems={listItems}>
                 </InventoryDelete>
             </TableContainer>
         

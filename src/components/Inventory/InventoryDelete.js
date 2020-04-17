@@ -10,11 +10,13 @@ import Cookies from 'js-cookie'
 import Divider from '@material-ui/core/Divider';
 
 
-function InventoryDelete({open, handleClose, post_id}) {
+function InventoryDelete({open, handleClose, post_id, listItems}) {
 
     const handleDelete = (post_id) => {
+
           axios.delete("http://localhost:8000/api/item/" + post_id, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
           .then(response => {
+              listItems()
               console.log(response)
           })
           .catch(error =>{
@@ -31,14 +33,15 @@ function InventoryDelete({open, handleClose, post_id}) {
         aria-describedby="alert-dialog-description" 
         maxWidth="sm" 
         fullWidth="true"
-    >
+        >
+
     <DialogTitle id="alert-dialog-title">
                   {"Are you sure you want to delete?"}
     </DialogTitle>
     <Divider light />
     <DialogContent>
     <DialogContentText id="alert-dialog-description">
-            This action will permanently delete this property entry from your records. 
+            This action will permanently delete this entry from your inventory. 
     </DialogContentText>
     </DialogContent>
     <DialogActions>

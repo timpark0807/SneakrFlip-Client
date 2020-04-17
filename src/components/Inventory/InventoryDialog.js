@@ -2,18 +2,14 @@ import React from 'react'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import axios from 'axios'
-import Cookies from 'js-cookie'
 import Divider from '@material-ui/core/Divider';
 import InventoryForm from './InventoryForm.js'
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 
-function InventoryDialog({open, handleClose}) {
+function InventoryDialog({open, handleClose, listItems}) {
 
     return (
         
@@ -46,9 +42,12 @@ function InventoryDialog({open, handleClose}) {
 
     {/* Body */}
     <DialogContent>
-    <InventoryForm></InventoryForm>
+    <InventoryForm
+    listItems={listItems}
+    onClose={handleClose}
+    />
     </DialogContent>
-    
+
   </Dialog>
     )
 }

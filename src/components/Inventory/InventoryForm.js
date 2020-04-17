@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'js-cookie'
 
-function InventoryForm() { 
+function InventoryForm({listItems, onClose}) { 
 
     const [fields, setFields] = React.useState({category: '',
                                                 brand: '',
@@ -20,14 +20,18 @@ function InventoryForm() {
             })
         }
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
         Axios.post("http://localhost:8000/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
         .then(response => {
+            listItems()
+            event.preventDefault()
+            onClose()
             console.log(response)
         })
         .catch(error =>{
             console.log(error)
         })
+
     }
 
     return (
@@ -44,9 +48,11 @@ function InventoryForm() {
                 <div>
                 <TextField id="standard-basic" label="Title" name="description" value={fields.description} onChange={changeHandler}></TextField>
                 </div>
+
                 <div>
                 <TextField id="standard-basic" label="Size" name="size" value={fields.size} onChange={changeHandler}></TextField>
                 </div>
+
                 <div>
                 <TextField id="standard-basic" label="Condition" name="condition" value={fields.condition} onChange={changeHandler}></TextField>
                 </div>

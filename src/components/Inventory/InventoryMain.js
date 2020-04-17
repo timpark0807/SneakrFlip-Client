@@ -10,6 +10,8 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import InventoryDialog from './InventoryDialog.js'
 import InventoryTable from './InventoryTable.js'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const styles = (theme) => ({
   paper: {
@@ -37,6 +39,7 @@ const styles = (theme) => ({
 
 function InventoryMain(props) {
 
+  const [posts, setPosts] = React.useState([])
   const { classes } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -47,6 +50,16 @@ function InventoryMain(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+      
+  const listItems = () => {axios.get('http://localhost:8000/api/item', {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
+  .then(response =>{
+      setPosts(response.data)
+  })
+  .catch(error=>{
+      console.log(error)
+  })
+}
 
   return (
 
@@ -70,7 +83,9 @@ function InventoryMain(props) {
               </Fab>
               <InventoryDialog
                     open={open}
-                    handleClose={handleClose}>
+                    handleClose={handleClose}
+                    listItems={listItems}
+                    >
               </InventoryDialog>
             </Grid>
           </Grid>
@@ -80,7 +95,11 @@ function InventoryMain(props) {
       {/* Body */}
       <div className={classes.contentWrapper}>
         <Typography color="textSecondary" align="center"></Typography>
-        <InventoryTable />
+        <InventoryTable 
+        listItems={listItems}
+        posts={posts}
+        setPosts={setPosts}
+        />
       </div>
     </Paper>
   );
