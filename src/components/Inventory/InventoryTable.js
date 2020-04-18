@@ -15,7 +15,7 @@ import InventoryEdit from './InventoryEdit.js'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
 import MoneyOffIcon from '@material-ui/icons/MoneyOff';
 
-function InventoryTable({listItems, posts, handleOpenAlert, setMessageAlert}) {
+function InventoryTable({listItems, posts, handleOpenAlert}) {
     
     const [openDelete, setOpenDelete] = React.useState(false)
     const [openEdit, setOpenEdit] = React.useState(false)
@@ -80,7 +80,7 @@ function InventoryTable({listItems, posts, handleOpenAlert, setMessageAlert}) {
                                                 <IconButton size="small" onClick={() => handleClickSold(item._id)}>
                                                     {item.sold ? <AttachMoneyIcon/> : <MoneyOffIcon/>}
                                                 </IconButton>
-                                                <IconButton size="small" onClick={() => handleClickEdit(item._id)}><EditIcon /></IconButton> 
+                                                <IconButton size="small" onClick={() => handleClickEdit(item)}><EditIcon /></IconButton> 
                                                 <IconButton size="small" onClick={() => handleClickOpen(item._id)}><DeleteIcon /></IconButton>
                                         
                                             </TableCell>

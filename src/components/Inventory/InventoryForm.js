@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Axios from 'axios'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-function InventoryForm({listItems, onClose, handleOpenAlert}) { 
+function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) { 
 
     const [fields, setFields] = React.useState({type:'',
                                                 category: '',
@@ -18,7 +18,7 @@ function InventoryForm({listItems, onClose, handleOpenAlert}) {
                                                 size:'',
                                                 condition:''
                                             })
-
+                                            
     const changeHandler = (event) => {
             setFields({
                 ...fields,
@@ -26,21 +26,40 @@ function InventoryForm({listItems, onClose, handleOpenAlert}) {
             })
         }
 
-    const handleSubmit = (event) => {
+    useEffect(() => {
+        // Update the document title using the browser API
+        if (post_id) {
+            setFields(post_id)
+        }})
+
+          
+    const handleSubmitCreate = (event) => {
+        handleOpenAlert("Your item has been created!")
+
         Axios.post("http://localhost:8000/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
         .then(response => {
             event.preventDefault()            
             onClose()
-            handleOpenAlert("Your item has been created!")
             listItems()
             console.log(response)
         })
         .catch(error =>{
             console.log(error)
         })
-
     }
 
+    const handleSubmitEdit = (event) => {
+        alert(post_id)
+    }
+
+    const handleSubmit = (event) => {
+        if (action == "create") {
+            handleSubmitCreate(event)
+        }
+        if (action == "edit") {
+            handleSubmitEdit(event)
+        }
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -54,10 +73,11 @@ function InventoryForm({listItems, onClose, handleOpenAlert}) {
                     label="Category"
                     onChange={changeHandler}
                     name="category"
+                    value={fields.category}
                     input={<Input/>}>
 
-                    <MenuItem value="">
-                    <em>None</em>
+                    <MenuItem value={fields.category}>
+                    <em>{fields.category}</em>
                     </MenuItem>
                     <MenuItem value={"Shoe"}>Shoe</MenuItem>
                     <MenuItem value={"Clothing"}>Clothing</MenuItem>
@@ -86,10 +106,11 @@ function InventoryForm({listItems, onClose, handleOpenAlert}) {
                         label="Size"
                         onChange={changeHandler}
                         name="size"
+                        value={fields.size}
                         input={<Input/>}>
     
-                        <MenuItem value="">
-                        <em>None</em>
+                        <MenuItem value={fields.size}>
+                        <em>{fields.size}</em>
                         </MenuItem>
                         <MenuItem value={"7"}>7</MenuItem>
                         <MenuItem value={"9"}>8</MenuItem>
@@ -111,10 +132,11 @@ function InventoryForm({listItems, onClose, handleOpenAlert}) {
                         label="Size"
                         onChange={changeHandler}
                         name="size"
+                        value={fields.size}
                         input={<Input/>}>
     
-                        <MenuItem value="">
-                        <em>None</em>
+                        <MenuItem value={fields.size}>
+                        <em>{fields.size}</em>
                         </MenuItem>
                         <MenuItem value={"S"}>S</MenuItem>
                         <MenuItem value={"M"}>M</MenuItem>
@@ -134,10 +156,11 @@ function InventoryForm({listItems, onClose, handleOpenAlert}) {
                     label="Condition"
                     onChange={changeHandler}
                     name="condition"
+                    value={fields.condition}
                     input={<Input/>}>
 
-                    <MenuItem value="">
-                    <em>None</em>
+                    <MenuItem value={fields.condition}>
+                    <em>{fields.condition}</em>
                     </MenuItem>
                     <MenuItem value={"Deadstock"}>Deadstock</MenuItem>
                     <MenuItem value={"VNDS"}>VNDS</MenuItem>
