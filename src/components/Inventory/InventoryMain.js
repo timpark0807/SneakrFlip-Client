@@ -58,7 +58,8 @@ function InventoryMain(props) {
     setOpen(false);
   };
 
-  const handleOpenAlert = () => {
+  const handleOpenAlert = (message) => {
+    setMessageAlert(message)
     setOpenAlert(true)
   }
       
@@ -108,7 +109,11 @@ function InventoryMain(props) {
         </Toolbar>
       </AppBar>
 
-      <Snackbar open={openAlert} autoHideDuration={10000} onClose={handleCloseAlert}>
+      <Snackbar 
+      open={openAlert} 
+      autoHideDuration={10000} 
+      onClose={handleCloseAlert}      
+      >
         <Alert onClose={handleCloseAlert} severity="success">
           {messageAlert}
         </Alert>

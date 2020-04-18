@@ -10,11 +10,10 @@ import Cookies from 'js-cookie'
 import Divider from '@material-ui/core/Divider';
 
 
-function InventoryDelete({open, handleClose, post_id, listItems, handleOpenAlert, setMessageAlert}) {
+function InventoryDelete({openDelete, handleClose, post_id, listItems, handleOpenAlert}) {
 
     const handleDelete = (post_id) => {
-          setMessageAlert("Your item has been deleted!")
-          handleOpenAlert()
+          handleOpenAlert("Your item has been deleted!")
           axios.delete("http://localhost:8000/api/item/" + post_id, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
           .then(response => {
               listItems()
@@ -27,7 +26,7 @@ function InventoryDelete({open, handleClose, post_id, listItems, handleOpenAlert
 
     return (
     <Dialog 
-        open={open} 
+        open={openDelete} 
         onClose={handleClose} 
         overlayStyle={{backgroundColor: 'transparent'}}
         aria-labelledby="form-dialog-title"

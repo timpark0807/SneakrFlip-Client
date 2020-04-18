@@ -9,38 +9,39 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import InventoryDelete from './InventoryDelete.js'
-import {CSSTransition, TransitionGroup} from 'react-transition-group' 
+import InventoryEdit from './InventoryEdit.js'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
 import MoneyOffIcon from '@material-ui/icons/MoneyOff';
 
 function InventoryTable({listItems, posts, handleOpenAlert, setMessageAlert}) {
     
-    const [open, setOpen] = React.useState(false)
+    const [openDelete, setOpenDelete] = React.useState(false)
+    const [openEdit, setOpenEdit] = React.useState(false)
     const [deleteID, setDeleteID] = React.useState('')
+    const [editID, setEditID] = React.useState('')
 
     // load database entries when page loads
     useEffect(() => listItems(), [])
 
     const handleClickOpen = (post_id) => {
-      setOpen(true);
+      setOpenDelete(true)
       setDeleteID(post_id)
     };
   
+    const handleClickEdit = (post_id) => {
+        setOpenEdit(true)
+        setEditID(post_id)
+      };
+        
     const handleClose = () => {
-      setOpen(false);
+      setOpenDelete(false)
+      setOpenEdit(false)
     };
 
-
-    const handleSoldClick = (item_id) => {
-        deleteRequest(item_id)
-    }
-    
-    const deleteRequest = (item_id) => {
-        setMessageAlert("The status of your item has been changed!")
-        handleOpenAlert()
+    const handleClickSold = (item_id) => {
+        handleOpenAlert("The status of your item has been changed!")
         axios.post("http://localhost:8000/api/item/updatestatus", {"_id": item_id}, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
         .then(response => {
             console.log(response)
@@ -76,10 +77,10 @@ function InventoryTable({listItems, posts, handleOpenAlert, setMessageAlert}) {
                                             <TableCell align="left"> {item.condition} </TableCell>
                                            
                                             <TableCell align="center"> 
-                                                <IconButton size="small" onClick={() => handleSoldClick(item._id)}>
+                                                <IconButton size="small" onClick={() => handleClickSold(item._id)}>
                                                     {item.sold ? <AttachMoneyIcon/> : <MoneyOffIcon/>}
                                                 </IconButton>
-                                                <IconButton size="small"><EditIcon /></IconButton> 
+                                                <IconButton size="small" onClick={() => handleClickEdit(item._id)}><EditIcon /></IconButton> 
                                                 <IconButton size="small" onClick={() => handleClickOpen(item._id)}><DeleteIcon /></IconButton>
                                         
                                             </TableCell>
@@ -93,14 +94,20 @@ function InventoryTable({listItems, posts, handleOpenAlert, setMessageAlert}) {
                     </TableBody>
   
                 </Table>
-                            
+                <InventoryEdit
+                    openEdit={openEdit}
+                    handleClose={handleClose}
+                    post_id={editID}
+                    listItems={listItems}
+                    handleOpenAlert={handleOpenAlert}
+                    >    
+                </InventoryEdit>    
                 <InventoryDelete 
-                    open={open}
+                    openDelete={openDelete}
                     handleClose={handleClose}
                     post_id={deleteID}
                     listItems={listItems}
                     handleOpenAlert={handleOpenAlert}
-                    setMessageAlert={setMessageAlert}             
                     >
                 </InventoryDelete>
             </TableContainer>
