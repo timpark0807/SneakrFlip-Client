@@ -9,9 +9,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import InventoryDelete from './InventoryDelete.js'
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import {CSSTransition, TransitionGroup} from 'react-transition-group' 
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
+import MoneyOffIcon from '@material-ui/icons/MoneyOff';
 
 function InventoryTable({listItems, posts, handleOpenAlert, setMessageAlert}) {
     
@@ -53,36 +56,42 @@ function InventoryTable({listItems, posts, handleOpenAlert, setMessageAlert}) {
                 <Table aria-label="simple table" style={{minWidth:650}}>
                     <TableHead>
                         <TableRow>
-                            <TableCell><b>Category</b></TableCell>
+                            <TableCell align="left"><b>Category</b></TableCell>
                             <TableCell align="left"><b>Brand</b></TableCell>
                             <TableCell align="left"><b>Description</b></TableCell>
-                            <TableCell align="right"><b>Size</b></TableCell>
+                            <TableCell align="center"><b>Size</b></TableCell>
                             <TableCell align="left"><b>Condition</b></TableCell>
-                            <TableCell align="left"><b>Status</b></TableCell>
-                            <TableCell align="center"><b></b></TableCell>
+                            <TableCell align="center"><b>Options</b></TableCell>
                         </TableRow>
                     </TableHead>
+
                     <TableBody>
-                        {posts.map(item=> <TableRow key={item._id}> 
+
+                        {posts.map(item=> 
+                                            <TableRow key={item._id}> 
                                             <TableCell align="left"> {item.category} </TableCell>
                                             <TableCell align="left"> {item.brand} </TableCell>
                                             <TableCell align="left"> {item.description} </TableCell>
-                                            <TableCell align="right"> {item.size} </TableCell>
+                                            <TableCell align="center"> {item.size} </TableCell>
                                             <TableCell align="left"> {item.condition} </TableCell>
-                                            <TableCell align="left"> 
-                                                <IconButton size="small" onClick={() => handleSoldClick(item._id)}>
-                                                    <AttachMoneyIcon/>{item.sold ? "sold" : "unsold" }
-                                                </IconButton>
-                                            </TableCell>
+                                           
                                             <TableCell align="center"> 
+                                                <IconButton size="small" onClick={() => handleSoldClick(item._id)}>
+                                                    {item.sold ? <AttachMoneyIcon/> : <MoneyOffIcon/>}
+                                                </IconButton>
                                                 <IconButton size="small"><EditIcon /></IconButton> 
                                                 <IconButton size="small" onClick={() => handleClickOpen(item._id)}><DeleteIcon /></IconButton>
-                                            
-                                            
+                                        
                                             </TableCell>
-                                            </TableRow>)
+                                            </TableRow>
+                                          
+                                            
+                                            
+                                            )
                         }
+
                     </TableBody>
+  
                 </Table>
                             
                 <InventoryDelete 
