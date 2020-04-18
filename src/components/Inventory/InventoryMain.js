@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import InventoryDialog from './InventoryDialog.js'
+import InventoryCreate from './InventoryCreate.js'
 import InventoryTable from './InventoryTable.js'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -46,16 +46,16 @@ function InventoryMain(props) {
 
   const [posts, setPosts] = React.useState([])
   const { classes } = props;
-  const [open, setOpen] = React.useState(false);
+  const [openCreate, setOpenCreate] = React.useState(false);
   const [openAlert, setOpenAlert] = React.useState(false); 
   const [messageAlert, setMessageAlert] = React.useState(""); 
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickCreate = () => {
+    setOpenCreate(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenCreate(false);
   };
 
   const handleOpenAlert = (message) => {
@@ -93,17 +93,16 @@ function InventoryMain(props) {
             </Grid>
 
             <Grid item>
-              <Fab size="small" color="primary" aria-label="add" onClick={handleClickOpen}>
+              <Fab size="small" color="primary" aria-label="add" onClick={handleClickCreate}>
                 <AddIcon />
               </Fab>
-              <InventoryDialog
-                    open={open}
+              <InventoryCreate
+                    openCreate={openCreate}
                     handleClose={handleClose}
                     listItems={listItems}
                     handleOpenAlert={handleOpenAlert}
-                    setMessageAlert={setMessageAlert}
                     >
-              </InventoryDialog>
+              </InventoryCreate>
             </Grid>
           </Grid>
         </Toolbar>
@@ -127,7 +126,6 @@ function InventoryMain(props) {
         posts={posts}
         setPosts={setPosts}
         handleOpenAlert={handleOpenAlert}
-        setMessageAlert={setMessageAlert}
         />
       </div>
     </Paper>

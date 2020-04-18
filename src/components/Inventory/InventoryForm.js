@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-function InventoryForm({listItems, onClose, handleOpenAlert, setMessageAlert}) { 
+function InventoryForm({listItems, onClose, handleOpenAlert}) { 
 
     const [fields, setFields] = React.useState({type:'',
                                                 category: '',
@@ -29,13 +29,9 @@ function InventoryForm({listItems, onClose, handleOpenAlert, setMessageAlert}) {
     const handleSubmit = (event) => {
         Axios.post("http://localhost:8000/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
         .then(response => {
-            event.preventDefault()
-            setMessageAlert("Your item has been created!")
-            
+            event.preventDefault()            
             onClose()
-
-            handleOpenAlert()
-
+            handleOpenAlert("Your item has been created!")
             listItems()
             console.log(response)
         })
