@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Table from '@material-ui/core/Table';
@@ -14,6 +14,12 @@ import InventoryDelete from './InventoryDelete.js'
 import InventoryEdit from './InventoryEdit.js'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
 import MoneyOffIcon from '@material-ui/icons/MoneyOff';
+import {
+    CSSTransition,
+    TransitionGroup,
+  } from 'react-transition-group';
+import './styles.css';
+
 
 function InventoryTable({listItems, posts, handleOpenAlert}) {
     
@@ -66,32 +72,33 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                         </TableRow>
                     </TableHead>
 
-                    <TableBody>
-
+                    <TransitionGroup component="tbody">
                         {posts.map(item=> 
-                                            <TableRow key={item._id}> 
-                                            <TableCell align="left"> {item.category} </TableCell>
-                                            <TableCell align="left"> {item.brand} </TableCell>
-                                            <TableCell align="left"> {item.description} </TableCell>
-                                            <TableCell align="center"> {item.size} </TableCell>
-                                            <TableCell align="left"> {item.condition} </TableCell>
-                                           
-                                            <TableCell align="center"> 
-                                                <IconButton size="small" onClick={() => handleClickSold(item._id)}>
-                                                    {item.sold ? <AttachMoneyIcon/> : <MoneyOffIcon/>}
-                                                </IconButton>
-                                                <IconButton size="small" onClick={() => handleClickEdit(item)}><EditIcon /></IconButton> 
-                                                <IconButton size="small" onClick={() => handleClickOpen(item._id)}><DeleteIcon /></IconButton>
-                                        
-                                            </TableCell>
-                                            </TableRow>
-                                          
-                                            
-                                            
+                                <CSSTransition
+                                key={item._id}
+                                timeout={500}
+                                classNames="item"
+                                >
+                                    <TableRow key={item._id}> 
+                                    <TableCell align="left"> {item.category} </TableCell>
+                                    <TableCell align="left"> {item.brand} </TableCell>
+                                    <TableCell align="left"> {item.description} </TableCell>
+                                    <TableCell align="center"> {item.size} </TableCell>
+                                    <TableCell align="left"> {item.condition} </TableCell>
+                                    
+                                    <TableCell align="center"> 
+                                        <IconButton size="small" onClick={() => handleClickSold(item._id)}>
+                                            {item.sold ? <AttachMoneyIcon/> : <MoneyOffIcon/>}
+                                        </IconButton>
+                                        <IconButton size="small" onClick={() => handleClickEdit(item)}><EditIcon /></IconButton> 
+                                        <IconButton size="small" onClick={() => handleClickOpen(item._id)}><DeleteIcon /></IconButton>
+                                
+                                    </TableCell>
+                                    </TableRow>        
+                                 </CSSTransition>
                                             )
                         }
-
-                    </TableBody>
+                    </TransitionGroup>
   
                 </Table>
                 <InventoryEdit
