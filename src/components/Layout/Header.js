@@ -7,9 +7,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { GoogleLogout } from "react-google-login";
 import Cookies from 'js-cookie'
-import {  NavLink } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import LoginDialog from './../Layout/Login'
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
 
 function Header() {
 
@@ -31,6 +36,25 @@ function Header() {
   }
 
 
+  const [openLogout, setOpenLogout] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleMenuItemClick = (event) => {
+    setOpenLogout(false);
+  };
+
+  const handleToggle = () => {
+    setOpenLogout((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpenLogout(false);
+  };
+
   return (
     <Fragment>
  
@@ -45,7 +69,7 @@ function Header() {
           </Grid>
           <Grid item>
           {!Cookies.get("token") && (
-                <Button onClick={handleLoginOpen}>
+                <Button onClick={handleLoginOpen} color="white">
                 Login
                 </Button>
 
@@ -58,7 +82,40 @@ function Header() {
           />
 
           {Cookies.get("token") && (
-              <GoogleLogout
+            <React.Fragment>
+              <IconButton color="inherit"
+                className="logout-button"
+                  onClick={handleToggle}
+                  ref={anchorRef}>
+                  <Avatar src={Cookies.get("userDetails")}></Avatar>
+              </IconButton>
+
+              <Popper open={openLogout} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{
+                      transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+                    }}
+                  >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList id="split-button-menu">
+                          <MenuItem
+                            onClick={(event) => handleMenuItemClick(event)}
+                          >
+                              Logout
+                          </MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </React.Fragment>
+            )}
+
+              {/* <GoogleLogout
               clientId="156573644182-2u91vb6240l0ld426efbeccbibjdigat.apps.googleusercontent.com" 
               render={renderProps => (
                 <IconButton color="inherit"
@@ -66,12 +123,9 @@ function Header() {
                   onClick={renderProps.onClick}>
                   <Avatar src={Cookies.get("userDetails")}></Avatar>
                   </IconButton>
-                
                 )}
               onLogoutSuccess={logout}
-              />
-          )}
-
+              /> */}
               </Grid>
           </Toolbar>
         </AppBar>
