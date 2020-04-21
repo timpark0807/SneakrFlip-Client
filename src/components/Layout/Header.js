@@ -1,72 +1,65 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, Fragment } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import GoogleLogin from 'react-google-login'
 import { GoogleLogout } from "react-google-login";
 import Cookies from 'js-cookie'
+import {  NavLink } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import LoginDialog from './../Layout/Login'
 
-class Header extends Component {
-        constructor() {
-          super();
-          
-          this.state = {
-            userDetails: {},
-            isUserLoggedIn: false,
-          };
-        }
+function Header() {
 
+  const [openLogin, setOpenLogin] = React.useState(false)
 
-  responseGoogle = response => {
-    console.log(response)
-    console.log(response.tc.access_token)
-    Cookies.set("token", response.tc.access_token)
-    Cookies.set("userDetails", response.profileObj.imageUrl)
-    this.setState({ userDetails: response.profileObj, isUserLoggedIn: true, accessToken: response.profileObj.email });
-  };
-
-  logout = () => {
+  const logout = () => {
+    console.log("logout")
     Cookies.remove("token")
-    Cookies.remove("imageUrl")
+    Cookies.remove("userDetails")
     this.setState({isUserLoggedIn: false})
   };
 
-  render() {
+  const handleLoginOpen = () => {
+      setOpenLogin(true)
+  }
+
+  const handleLoginClose = () => {
+    setOpenLogin(false)
+  }
+
 
   return (
-    <React.Fragment>
+    <Fragment>
  
-      <AppBar
-        component="div"
-        color="primary"
-        position="static"
-        elevation={0}
-      >
+      <AppBar component="div" color="primary" position="static" elevation={0}>
         <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Authentication
+                
               </Typography>
             </Grid>
           </Grid>
           <Grid item>
-          {!this.state.isUserLoggedIn && (
-            <GoogleLogin
-              clientId="ENTERHERE" 
-              buttonText="Login"
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}
-            />
+          {!Cookies.get("token") && (
+                <Button onClick={handleLoginOpen}>
+                Login
+                </Button>
+
+               
           )}
 
-          {this.state.isUserLoggedIn && (
+          <LoginDialog
+            openLogin={openLogin}
+            handleLoginClose={handleLoginClose}
+          />
+
+          {Cookies.get("token") && (
               <GoogleLogout
+              clientId="156573644182-2u91vb6240l0ld426efbeccbibjdigat.apps.googleusercontent.com" 
               render={renderProps => (
                 <IconButton color="inherit"
                 className="logout-button"
@@ -75,18 +68,17 @@ class Header extends Component {
                   </IconButton>
                 
                 )}
-              onLogoutSuccess={this.logout}
+              onLogoutSuccess={logout}
               />
-
           )}
 
               </Grid>
           </Toolbar>
         </AppBar>
 
-      </React.Fragment>
+      </Fragment>
     );
-  }
+  
 }
 
 export default Header;

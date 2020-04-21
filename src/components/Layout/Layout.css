@@ -1,0 +1,49 @@
+.btnFacebook { 
+    width: 220px;
+    height:45px;  
+    margin:5px;
+    border-radius: 4px;
+    background: #3b5998;
+    color:white;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .24), 0 0 1px 0 rgba(0, 0, 0, .24);
+    padding: 0;
+    border-radius: 2;
+    border: '1px solid transparent';
+    font-size: 11pt;
+  }
+
+.btnGoogle { 
+  width: 220px;
+  height:45px;
+  margin:5px;
+  margin-top:10px;
+  border-radius: 4px;
+  align-items: 'center';
+  color: white;
+  text-align: center;
+  font-size: 11pt;
+  }
+
+.btnGitHub { 
+  width: 220px;
+  height:45px;
+  margin:5px;
+  margin-bottom:20px;
+  border-radius: 4px;
+  align-items: 'center';
+  background:black;
+  color: white;
+  text-align: center;
+  font-size: 11pt;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .24), 0 0 1px 0 rgba(0, 0, 0, .24);
+  }
+
+.btnFacebook:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+  
+.btnGitHub:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
