@@ -21,10 +21,9 @@ function Header() {
   const [openLogin, setOpenLogin] = React.useState(false)
 
   const logout = () => {
-    console.log("logout")
     Cookies.remove("token")
     Cookies.remove("userDetails")
-    this.setState({isUserLoggedIn: false})
+    setOpenLogout(false);
   };
 
   const handleLoginOpen = () => {
@@ -35,13 +34,8 @@ function Header() {
     setOpenLogin(false)
   }
 
-
   const [openLogout, setOpenLogout] = React.useState(false);
   const anchorRef = React.useRef(null);
-
-  const handleMenuItemClick = (event) => {
-    setOpenLogout(false);
-  };
 
   const handleToggle = () => {
     setOpenLogout((prevOpen) => !prevOpen);
@@ -51,7 +45,6 @@ function Header() {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpenLogout(false);
   };
 
@@ -71,9 +64,7 @@ function Header() {
           {!Cookies.get("token") && (
                 <Button onClick={handleLoginOpen} color="white">
                 Login
-                </Button>
-
-               
+                </Button> 
           )}
 
           <LoginDialog
@@ -82,51 +73,42 @@ function Header() {
           />
 
           {Cookies.get("token") && (
-            <React.Fragment>
-              <IconButton color="inherit"
-                className="logout-button"
-                  onClick={handleToggle}
-                  ref={anchorRef}>
-                  <Avatar src={Cookies.get("userDetails")}></Avatar>
-              </IconButton>
-
-              <Popper open={openLogout} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                      transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-                    }}
-                  >
-                  <Paper>
-                    <ClickAwayListener onClickAway={handleClose}>
-                      <MenuList id="split-button-menu">
-                          <MenuItem
-                            onClick={(event) => handleMenuItemClick(event)}
-                          >
-                              Logout
-                          </MenuItem>
-                      </MenuList>
-                    </ClickAwayListener>
-                  </Paper>
-                  </Grow>
-                )}
-              </Popper>
-            </React.Fragment>
-            )}
-
-              {/* <GoogleLogout
-              clientId="156573644182-2u91vb6240l0ld426efbeccbibjdigat.apps.googleusercontent.com" 
-              render={renderProps => (
+              <React.Fragment>
                 <IconButton color="inherit"
-                className="logout-button"
-                  onClick={renderProps.onClick}>
-                  <Avatar src={Cookies.get("userDetails")}></Avatar>
-                  </IconButton>
-                )}
-              onLogoutSuccess={logout}
-              /> */}
-              </Grid>
+                  className="logout-button"
+                    onClick={handleToggle}
+                    ref={anchorRef}>
+                    <Avatar src={Cookies.get("userDetails")}></Avatar>
+                </IconButton>
+
+                <Popper open={openLogout} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+                      }}
+                    >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleClose}>
+                        <MenuList id="split-button-menu">
+                            <GoogleLogout
+                            clientId="156573644182-2u91vb6240l0ld426efbeccbibjdigat.apps.googleusercontent.com" 
+                            onLogoutSuccess={logout}
+                            disabledStyle={true}
+                            render={renderProps => (
+                              <MenuItem onClick={renderProps.onClick}>Logout</MenuItem>
+                            )}
+                            />
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                    </Grow>
+                  )}
+                </Popper>
+              </React.Fragment>
+            )}
+            </Grid>
           </Toolbar>
         </AppBar>
 
