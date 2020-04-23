@@ -2,33 +2,39 @@
 import React from 'react'
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
-import { NavLink } from "react-router-dom";
 import Cookies from 'js-cookie'
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid'
 import { Typography } from '@material-ui/core';
 import GoogleLogin from 'react-google-login'
 import FacebookLogin from 'react-facebook-login';
 import GitHubLogin from 'react-github-login';
-
 import './Layout.css'
+import { Redirect, useHistory } from 'react-router-dom';
 
 function LoginDialog({openLogin, handleLoginClose}) {
+    const history = useHistory() 
 
     const responseGoogle = response => {
         Cookies.set("token", response.tc.access_token, {sameSite: 'lax' })
         Cookies.set("userDetails", response.profileObj.imageUrl)
+        handleLoginClose()
+        history.push("/inventory")
       };
+
+    // const responseFacebook = response => {
+    //     console.log(response)
+    //     Cookies.set("token", response.access_token, {sameSite: 'lax' })
+    //     handleLoginClose()
+    // }
 
     return (
         <Dialog
         open={openLogin}
         onClose={handleLoginClose} 
-        fullWidth={true}
-        maxWidth = {'sm'}
+        maxWidth={"xs"}
         >
+
         <DialogContent>
 
             <Typography 
@@ -37,7 +43,7 @@ function LoginDialog({openLogin, handleLoginClose}) {
                     x
             </Typography>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
 
                 <Grid item xs={12}>
                     <Typography 
@@ -55,7 +61,7 @@ function LoginDialog({openLogin, handleLoginClose}) {
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{paddingBottom:"10px"}}>
                     <Typography 
                         variant="subtitle1"
                         align="center">
@@ -63,6 +69,7 @@ function LoginDialog({openLogin, handleLoginClose}) {
                     </Typography>
                 </Grid>
             </Grid>
+
             <Grid container>
                 <Grid item xs={12} align="center">
                     <GoogleLogin
@@ -75,12 +82,24 @@ function LoginDialog({openLogin, handleLoginClose}) {
 
                 <Grid item xs={12} align="center">
                     <FacebookLogin
+                    appId="673974656510450"
                     icon="fa-facebook"
+                    fields="name,email,picture"
                     cssClass="btnFacebook"
-                    />  
+                    textButton="Sign in with Facebook"
+                    // callback={responseFacebook}
+                 />  
                 </Grid> 
+
                 <Grid item xs={12} align="center">
+                    <Button
+                    className="btnGitHub"
+                    color="black"
+                    variant="contained">
+
+                    </Button>
                     <GitHubLogin
+                    icon="fa-github"
                     className="btnGitHub"
                     />  
                 </Grid> 

@@ -63,7 +63,7 @@ function Header() {
           <Grid item>
           {!Cookies.get("token") && (
                 <Button onClick={handleLoginOpen} color="white">
-                Login
+                <Typography style={{color: "white", verticalAlign:"bottom"}}>Login</Typography>
                 </Button> 
           )}
 
