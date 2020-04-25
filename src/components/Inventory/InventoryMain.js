@@ -14,6 +14,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = (theme) => ({
   paper: {
@@ -34,6 +35,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1),
   },
   contentWrapper: {
+    marginTop:'10px',
     margin: '40px 16px',
   },
 });
@@ -93,9 +95,11 @@ function InventoryMain(props) {
             </Grid>
 
             <Grid item>
+              <Tooltip title="Add New">
               <Fab size="small" color="primary" aria-label="add" onClick={handleClickCreate}>
                 <AddIcon />
               </Fab>
+              </Tooltip>
               <InventoryCreate
                     openCreate={openCreate}
                     handleClose={handleClose}

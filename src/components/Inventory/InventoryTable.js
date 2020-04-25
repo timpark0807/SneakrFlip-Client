@@ -3,7 +3,6 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import Container from '@material-ui/core/Container'
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
@@ -18,8 +17,8 @@ import MoneyOffIcon from '@material-ui/icons/MoneyOff';
 import { Typography } from '@material-ui/core';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import Tooltip from '@material-ui/core/Tooltip';
 import './styles.css';
-import Grid from '@material-ui/core/Grid';
 
 function InventoryTable({listItems, posts, handleOpenAlert}) {
     
@@ -89,11 +88,23 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                                     <TableCell align="left"> {item.condition} </TableCell>
                                     
                                     <TableCell align="center"> 
-                                        <IconButton size="small" onClick={() => handleClickSold(item._id)}>
-                                            {item.sold ? <AttachMoneyIcon/> : <MoneyOffIcon/>}
-                                        </IconButton>
-                                        <IconButton size="small" onClick={() => handleClickEdit(item)}><EditIcon /></IconButton> 
-                                        <IconButton size="small" onClick={() => handleClickOpen(item._id)}><DeleteIcon /></IconButton>
+                                        <Tooltip title="Change Status">
+                                            <IconButton size="small" onClick={() => handleClickSold(item._id)}>
+                                                {item.sold ? <AttachMoneyIcon/> : <MoneyOffIcon/>}
+                                            </IconButton>
+                                        </Tooltip>
+
+                                        <Tooltip title="Edit">
+                                            <IconButton size="small" onClick={() => handleClickEdit(item)}>
+                                                <EditIcon />
+                                            </IconButton> 
+                                        </Tooltip>
+
+                                        <Tooltip title="Delete">
+                                            <IconButton size="small" onClick={() => handleClickOpen(item._id)}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </Tooltip>
                                 
                                     </TableCell>
                                     </TableRow>        
