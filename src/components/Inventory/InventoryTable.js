@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import Container from '@material-ui/core/Container'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,12 +15,11 @@ import InventoryDelete from './InventoryDelete.js'
 import InventoryEdit from './InventoryEdit.js'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
 import MoneyOffIcon from '@material-ui/icons/MoneyOff';
-import {
-    CSSTransition,
-    TransitionGroup,
-  } from 'react-transition-group';
+import { Typography } from '@material-ui/core';
+import { CSSTransition, TransitionGroup} from 'react-transition-group';
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import './styles.css';
-
+import Grid from '@material-ui/core/Grid';
 
 function InventoryTable({listItems, posts, handleOpenAlert}) {
     
@@ -60,6 +60,7 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
 
     return (
             <TableContainer>
+                {posts &&
                 <Table aria-label="simple table" style={{minWidth:650}}>
                     <TableHead>
                         <TableRow>
@@ -73,7 +74,8 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                     </TableHead>
 
                     <TransitionGroup component="tbody">
-                        {posts.map(item=> 
+
+                    {posts.map(item=> 
                                 <CSSTransition
                                 key={item._id}
                                 timeout={500}
@@ -83,7 +85,7 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                                     <TableCell align="left"> {item.category} </TableCell>
                                     <TableCell align="left"> {item.brand} </TableCell>
                                     <TableCell align="left"> {item.description} </TableCell>
-                                    <TableCell align="center"> {item.size} </TableCell>
+                                    <TableCell align="center"> {item.category!= "Other" ? item.size : "-"} </TableCell>
                                     <TableCell align="left"> {item.condition} </TableCell>
                                     
                                     <TableCell align="center"> 
@@ -96,11 +98,25 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                                     </TableCell>
                                     </TableRow>        
                                  </CSSTransition>
-                                            )
+                            )
                         }
+
                     </TransitionGroup>
-  
                 </Table>
+
+            }
+            {!posts &&
+            <Container>
+            <Typography style={{marginTop:20}} align="center">
+                It looks like you have no inventory 
+                <SentimentVeryDissatisfiedIcon style={{paddingTop:10}}/>
+            </Typography>
+            <Typography style={{marginTop:8}} align="center">
+                Let's get started! Click the create icon.
+            </Typography>        
+            </Container>
+        }
+
                 <InventoryEdit
                     openEdit={openEdit}
                     handleClose={handleClose}
@@ -117,6 +133,7 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                     handleOpenAlert={handleOpenAlert}
                     >
                 </InventoryDelete>
+
             </TableContainer>
         
     )
