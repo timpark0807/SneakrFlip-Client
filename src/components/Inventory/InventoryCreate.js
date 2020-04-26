@@ -18,8 +18,7 @@ function InventoryCreate({openCreate, handleClose, listItems, handleOpenAlert}) 
         onClose={handleClose} 
         aria-labelledby="form-dialog-title"
         aria-describedby="alert-dialog-description" 
-        maxWidth="sm" 
-        fullWidth="true"
+        maxWidth="xs" 
     >
     {/* Header */}
     <DialogTitle id="alert-dialog-title">

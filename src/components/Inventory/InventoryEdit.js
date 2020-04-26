@@ -20,8 +20,7 @@ function InventoryEdit({openEdit, handleClose, post_id, listItems, handleOpenAle
         overlayStyle={{backgroundColor: 'transparent'}}
         aria-labelledby="form-dialog-title"
         aria-describedby="alert-dialog-description" 
-        maxWidth="sm" 
-        fullWidth="true"
+        maxWidth="xs" 
         >
 
     <DialogTitle id="alert-dialog-title">

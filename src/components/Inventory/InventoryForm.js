@@ -183,14 +183,14 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
                 </FormControl>
     
             </div>
-            <Grid container justify="center">
+            <Grid container justify="center" style={{"margin-top":20,"margin-bottom":10}}>
                 <Grid item>
-                    <Button variant="outlined" type="cancel" style={{"margin-top":20, "margin-right":20}} onClick={(event) => { event.preventDefault(); onClose()}}>
+                    <Button variant="outlined" type="cancel" style={{"margin-right":20}} onClick={(event) => { event.preventDefault(); onClose()}}>
                     Cancel
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" color="primary" type="submit" style={{"margin-top":20}}>
+                    <Button variant="contained" color="primary" type="submit">
                     Submit
                     </Button>
                 </Grid>
