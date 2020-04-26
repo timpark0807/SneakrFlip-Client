@@ -73,6 +73,7 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
         }
     }
 
+
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -183,10 +184,18 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
     
             </div>
             <Grid container justify="center">
-                <Button variant="contained" color="primary" type="submit" style={{"margin-top":20}}>
-                Submit
-                </Button>
+                <Grid item>
+                    <Button variant="outlined" type="cancel" style={{"margin-top":20, "margin-right":20}} onClick={(event) => { event.preventDefault(); onClose()}}>
+                    Cancel
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button variant="contained" color="primary" type="submit" style={{"margin-top":20}}>
+                    Submit
+                    </Button>
+                </Grid>
             </Grid>
+            
         </form>
     )
     

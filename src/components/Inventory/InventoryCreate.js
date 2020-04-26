@@ -23,17 +23,9 @@ function InventoryCreate({openCreate, handleClose, listItems, handleOpenAlert}) 
     >
     {/* Header */}
     <DialogTitle id="alert-dialog-title">
-        <Grid container spacing={0}>
-            <Grid item xs></Grid>
+        <Grid container align="center">
             <Grid item xs>
                 {"Add More Inventory"}
-            </Grid>
-            <Grid item xs>
-                <DialogActions>
-                    <Fab size="small" color="primary" aria-label="add" onClick={handleClose} style={{left:25, bottom:5}}>
-                        <CloseIcon/>
-                    </Fab>
-                </DialogActions>
             </Grid>
         </Grid>
     </DialogTitle>

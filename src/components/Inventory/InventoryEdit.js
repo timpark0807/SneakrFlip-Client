@@ -25,23 +25,15 @@ function InventoryEdit({openEdit, handleClose, post_id, listItems, handleOpenAle
         >
 
     <DialogTitle id="alert-dialog-title">
-        <Grid container spacing={0}>
-            <Grid item xs></Grid>
+        <Grid container align="center">
             <Grid item xs>
                 {"Edit This Item"}
-            </Grid>
-            <Grid item xs>
-                <DialogActions>
-                    <Fab size="small" color="primary" aria-label="add" onClick={handleClose} style={{left:25, bottom:15}}>
-                        <CloseIcon/>
-                    </Fab>
-                </DialogActions>
             </Grid>
         </Grid>
     </DialogTitle>
 
     <Divider light />
-    <DialogContent>
+    <DialogContent style={{marginTop:10}}>
       <Grid container justify="center">
         <InventoryForm
         action="edit"
