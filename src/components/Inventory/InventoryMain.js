@@ -100,6 +100,7 @@ function InventoryMain(props) {
                 <AddIcon />
               </Fab>
               </Tooltip>
+              
               <InventoryCreate
                     openCreate={openCreate}
                     handleClose={handleClose}

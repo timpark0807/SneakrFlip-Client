@@ -42,13 +42,15 @@ function InventoryCreate({openCreate, handleClose, listItems, handleOpenAlert}) 
 
     {/* Body */}
     <DialogContent>
-    <InventoryForm
-    listItems={listItems}
-    onClose={handleClose}
-    handleOpenAlert={handleOpenAlert}
-    />
+        <Grid container justify="center">
+            <InventoryForm
+            action="create"
+            listItems={listItems}
+            onClose={handleClose}
+            handleOpenAlert={handleOpenAlert}
+            />
+        </Grid>
     </DialogContent>
-
   </Dialog>
     )
 }

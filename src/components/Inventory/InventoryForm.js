@@ -8,6 +8,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
 
 function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) { 
 
@@ -30,7 +31,7 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
         // Update the document title using the browser API
         if (post_id) {
             setFields(post_id)
-        }})
+        }}, [])
 
           
     const handleSubmitCreate = (event) => {
@@ -49,10 +50,21 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
     }
 
     const handleSubmitEdit = (event) => {
-        alert(post_id)
-    }
+        handleOpenAlert("Your item has been edited!")
+
+        Axios.put("http://localhost:8000/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
+        .then(response => {
+            event.preventDefault()            
+            onClose()
+            listItems()
+            console.log(response)
+        })
+        .catch(error =>{
+            console.log(error)
+        })    }
 
     const handleSubmit = (event) => {
+        event.preventDefault()            
         if (action == "create") {
             handleSubmitCreate(event)
         }
@@ -65,7 +77,7 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
         <form onSubmit={handleSubmit}>
             <div>
 
-                <FormControl style={{minWidth: 160}}>
+                <FormControl style={{minWidth: 250}}>
 
                     <InputLabel id="demo-dialog-select-label">Category</InputLabel>
 
@@ -87,18 +99,18 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
                 </FormControl>
 
                 <div>
-                <TextField id="standard-basic" label="Brand" name="brand" value={fields.brand} onChange={changeHandler}></TextField>
+                <TextField fullWidth id="standard-basic" label="Brand" name="brand" value={fields.brand} onChange={changeHandler}></TextField>
                 </div>
 
                 <div>
-                <TextField id="standard-basic" label="Description" name="description" value={fields.description} onChange={changeHandler}></TextField>
+                <TextField fullWidth id="standard-basic" label="Description" name="description" value={fields.description} onChange={changeHandler}></TextField>
                 </div>
 
                 <div>
-                    {fields.category === '' && <TextField id="standard-basic" label="Size" name="size" value={fields.size} onChange={changeHandler}></TextField>}
+                    {fields.category === '' && <TextField fullWidth id="standard-basic" label="Size" name="size" value={fields.size} onChange={changeHandler}></TextField>}
 
                     {fields.category === 'Shoe' && 
-                    <FormControl style={{minWidth: 160}}>
+                    <FormControl style={{minWidth: 250}}>
 
                         <InputLabel id="demo-dialog-select-label">Size</InputLabel>
 
@@ -124,7 +136,7 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
 
                     }
                     {fields.category === 'Clothing' && 
-                    <FormControl style={{minWidth: 160}}>
+                    <FormControl style={{minWidth: 250}}>
 
                         <InputLabel id="demo-dialog-select-label">Size</InputLabel>
 
@@ -148,7 +160,7 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
                     }
                 </div>
 
-                <FormControl style={{minWidth: 160}}>
+                <FormControl style={{minWidth: 250}}>
 
                     <InputLabel id="demo-dialog-select-label">Condition</InputLabel>
 
@@ -164,15 +176,17 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
                     </MenuItem>
                     <MenuItem value={"Deadstock"}>Deadstock</MenuItem>
                     <MenuItem value={"VNDS"}>VNDS</MenuItem>
-                    <MenuItem value={"USED"}>Used</MenuItem>
+                    <MenuItem value={"Used"}>Used</MenuItem>
                     </Select>
 
                 </FormControl>
     
             </div>
-            <Button variant="contained" color="primary" type="submit" style={{"margin-top":20}}>
-            Submit
-            </Button>
+            <Grid container justify="center">
+                <Button variant="contained" color="primary" type="submit" style={{"margin-top":20}}>
+                Submit
+                </Button>
+            </Grid>
         </form>
     )
     

@@ -4,25 +4,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import axios from 'axios'
-import Cookies from 'js-cookie'
 import Divider from '@material-ui/core/Divider';
 import InventoryForm from './InventoryForm.js'
+import CloseIcon from '@material-ui/icons/Close';
+import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
 
 
 function InventoryEdit({openEdit, handleClose, post_id, listItems, handleOpenAlert}) {
-
-    const handleEdit = (post_id) => {
-          handleOpenAlert("Your item has been edited!")
-          axios.delete("http://localhost:8000/api/item/" + post_id, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
-          .then(response => {
-              listItems()
-              console.log(response)
-          })
-          .catch(error =>{
-              console.log(error)
-          })
-    }
 
     return (
     <Dialog 
@@ -36,35 +25,33 @@ function InventoryEdit({openEdit, handleClose, post_id, listItems, handleOpenAle
         >
 
     <DialogTitle id="alert-dialog-title">
-                  {"Are you sure you want to delete?"}
+        <Grid container spacing={0}>
+            <Grid item xs></Grid>
+            <Grid item xs>
+                {"Edit This Item"}
+            </Grid>
+            <Grid item xs>
+                <DialogActions>
+                    <Fab size="small" color="primary" aria-label="add" onClick={handleClose} style={{left:25, bottom:15}}>
+                        <CloseIcon/>
+                    </Fab>
+                </DialogActions>
+            </Grid>
+        </Grid>
     </DialogTitle>
+
     <Divider light />
     <DialogContent>
-    
-    <InventoryForm
-    action="edit"
-    post_id={post_id}
-    listItems={listItems}
-    onClose={handleClose}
-    handleOpenAlert={handleOpenAlert}
-    />
-
+      <Grid container justify="center">
+        <InventoryForm
+        action="edit"
+        post_id={post_id}
+        listItems={listItems}
+        onClose={handleClose}
+        handleOpenAlert={handleOpenAlert}
+        />
+    </Grid>
     </DialogContent>
-    <DialogActions>
-    <Button
-          onClick={() => handleClose(false)}
-          color="default">
-            Cancel
-    </Button>
-    <Button
-          onClick={() => {handleClose(false)
-                         handleEdit(post_id)
-                    }
-                }
-          color="primary">
-            Confirm
-    </Button>
-    </DialogActions>
   </Dialog>
     )
 }
