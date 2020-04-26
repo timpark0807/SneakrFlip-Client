@@ -15,6 +15,7 @@ import Cookies from 'js-cookie'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Tooltip from '@material-ui/core/Tooltip';
+import Badge from '@material-ui/core/Badge'
 
 const styles = (theme) => ({
   paper: {
@@ -95,12 +96,28 @@ function InventoryMain(props) {
             </Grid>
 
             <Grid item>
+            {posts &&
               <Tooltip title="Add New">
               <Fab size="small" color="primary" aria-label="add" onClick={handleClickCreate}>
                 <AddIcon />
               </Fab>
               </Tooltip>
-              
+            }
+
+            {!posts &&
+              <Tooltip title="Create First Entry!">
+              <Badge 
+                color="secondary" 
+                badgeContent="!" 
+                overlap="circle" 
+              >
+              <Fab size="small" color="primary" aria-label="add" onClick={handleClickCreate}>
+                <AddIcon />
+              </Fab>
+              </Badge>
+              </Tooltip>
+            }
+
               <InventoryCreate
                     openCreate={openCreate}
                     handleClose={handleClose}
