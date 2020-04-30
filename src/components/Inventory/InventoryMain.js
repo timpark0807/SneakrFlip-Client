@@ -16,6 +16,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Tooltip from '@material-ui/core/Tooltip';
 import Badge from '@material-ui/core/Badge'
+import IconButton from '@material-ui/core/IconButton'
+import Icon from '@material-ui/core/Icon'
+import RefreshIcon from '@material-ui/icons/Refresh';
+import Button from '@material-ui/core/Button'
 
 const styles = (theme) => ({
   paper: {
@@ -83,25 +87,32 @@ function InventoryMain(props) {
 
     // Card on /inventory route 
     <Paper className={classes.paper}>
-
       {/* Header */}
       <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
         <Toolbar>
           <Grid container spacing={2} alignItems="center">
             <Grid item xs>
               <Typography color="textSecondary" >
-
-                Inventory Manager
+                Inventory
               </Typography>
             </Grid>
 
             <Grid item>
             {posts &&
-              <Tooltip title="Add New">
-              <Fab size="small" color="primary" aria-label="add" onClick={handleClickCreate}>
-                <AddIcon />
-              </Fab>
+            <React.Fragment>
+              <Tooltip title="Refresh">
+                <IconButton variant='contained' size="small" color="default" aria-label="refresh" onClick={() => listItems()}>
+                    <RefreshIcon/>
+                </IconButton>
               </Tooltip>
+
+              <Tooltip title="Add New">
+                <Button variant='contained' size="small" color="primary" 
+                        aria-label="add" onClick={handleClickCreate} style={{marginLeft:10}}>
+                  Create Item
+                </Button>
+              </Tooltip>
+            </React.Fragment>
             }
 
             {!posts &&
@@ -109,11 +120,12 @@ function InventoryMain(props) {
               <Badge 
                 color="secondary" 
                 badgeContent="!" 
-                overlap="circle" 
+             //   overlap="circle" 
               >
-              <Fab size="small" color="primary" aria-label="add" onClick={handleClickCreate}>
-                <AddIcon />
-              </Fab>
+                <Button variant='contained' size="small" color="primary" 
+                        aria-label="add" onClick={handleClickCreate} style={{marginLeft:10}}>
+                  Create Item
+                </Button>
               </Badge>
               </Tooltip>
             }
@@ -129,7 +141,7 @@ function InventoryMain(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-
+ 
       <Snackbar 
       open={openAlert} 
       autoHideDuration={10000} 
