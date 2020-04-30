@@ -10,7 +10,9 @@ import GoogleLogin from 'react-google-login'
 import FacebookLogin from 'react-facebook-login';
 import GitHubLogin from 'react-github-login';
 import './Layout.css'
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { TwitterLogin } from "react-twitter-login";
+import { borders } from '@material-ui/system';
 
 function LoginDialog({openLogin, handleLoginClose}) {
     const history = useHistory() 
@@ -22,11 +24,11 @@ function LoginDialog({openLogin, handleLoginClose}) {
         history.push("/inventory")
       };
 
-    // const responseFacebook = response => {
-    //     console.log(response)
-    //     Cookies.set("token", response.access_token, {sameSite: 'lax' })
-    //     handleLoginClose()
-    // }
+    const responseFacebook = response => {
+        console.log(response)
+        // Cookies.set("token", response.access_token, {sameSite: 'lax' })
+        handleLoginClose()
+    }
 
     return (
         <Dialog
@@ -36,12 +38,11 @@ function LoginDialog({openLogin, handleLoginClose}) {
         >
 
         <DialogContent>
-
-            <Typography 
+            {/* <Typography 
                 variant="h6"
                 align="right">
                     x
-            </Typography>
+            </Typography> */}
 
             <Grid container spacing={1}>
 
@@ -57,7 +58,7 @@ function LoginDialog({openLogin, handleLoginClose}) {
                     <Typography 
                         variant="h5"
                         align="center">
-                            Resell Manager
+                            Sneakr Flip
                     </Typography>
                 </Grid>
 
@@ -76,7 +77,8 @@ function LoginDialog({openLogin, handleLoginClose}) {
                         clientId="156573644182-2u91vb6240l0ld426efbeccbibjdigat.apps.googleusercontent.com" 
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
-                        className="btnGoogle">
+                        className="btnGoogle"
+                        >
                     </GoogleLogin>
                 </Grid> 
 
@@ -87,24 +89,21 @@ function LoginDialog({openLogin, handleLoginClose}) {
                     fields="name,email,picture"
                     cssClass="btnFacebook"
                     textButton="Sign in with Facebook"
-                    // callback={responseFacebook}
+                    render={renderProps => (
+                        <button className="btnFacebook" onClick={renderProps.onClick}>This is my custom FB button</button>
+                       )}
+                    callback={responseFacebook}
                  />  
                 </Grid> 
 
-                <Grid item xs={12} align="center">
-                    <Button
-                    className="btnGitHub"
-                    color="black"
-                    variant="contained">
 
-                    </Button>
+                <Grid item xs={12} align="center">
+
                     <GitHubLogin
-                    icon="fa-github"
                     className="btnGitHub"
                     />  
                 </Grid> 
             </Grid>
-
         </DialogContent>
 
         </Dialog>
