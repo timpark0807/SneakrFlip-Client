@@ -68,6 +68,7 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                             <TableCell align="left"><b>Description</b></TableCell>
                             <TableCell align="center"><b>Size</b></TableCell>
                             <TableCell align="left"><b>Condition</b></TableCell>
+                            <TableCell align="left"> <b>Status</b></TableCell>
                             <TableCell align="center"><b>Options</b></TableCell>
                         </TableRow>
                     </TableHead>
@@ -86,7 +87,9 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                                     <TableCell align="left"> {item.description} </TableCell>
                                     <TableCell align="center"> {item.category!= "Other" ? item.size : "-"} </TableCell>
                                     <TableCell align="left"> {item.condition} </TableCell>
-                                    
+                                    <TableCell align="left"> {item.sold ? "Sold" : "Unsold"} </TableCell>
+
+    
                                     <TableCell align="center"> 
                                         <Tooltip title="Change Status">
                                             <IconButton size="small" onClick={() => handleClickSold(item._id)}>
@@ -116,17 +119,17 @@ function InventoryTable({listItems, posts, handleOpenAlert}) {
                 </Table>
 
             }
-            {!posts &&
-            <Container>
-            <Typography style={{marginTop:20}} align="center">
-                It looks like you have no inventory 
-                <SentimentVeryDissatisfiedIcon style={{paddingTop:10}}/>
-            </Typography>
-            <Typography style={{marginTop:8}} align="center">
-                Let's get started! Click the create icon.
-            </Typography>        
-            </Container>
-        }
+                {!posts &&
+                <Container>
+                <Typography style={{marginTop:20}} align="center">
+                    It looks like you have no inventory 
+                    <SentimentVeryDissatisfiedIcon style={{paddingTop:10}}/>
+                </Typography>
+                <Typography style={{marginTop:8}} align="center">
+                    Let's get started! Click the create icon.
+                </Typography>        
+                </Container>
+            }
 
                 <InventoryEdit
                     openEdit={openEdit}

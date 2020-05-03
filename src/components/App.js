@@ -1,11 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import Header from './Layout/Header.js'
 import Navigator from './Layout/Navigator.js'
-import { Route, NavLink, HashRouter} from "react-router-dom";
-import Content from './CRUD/Create';
-import Read from './CRUD/Read';
-import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
+import { Route, HashRouter, NavLink} from "react-router-dom";
+import Home from './Misc/Home';
+import ProtectedRoute from './Misc/ProtectedRoute';
+import Inventory from './Inventory/InventoryMain';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import LoginPage from './Layout/Login'
+
 let theme = createMuiTheme({
     palette: {
       primary: {
@@ -144,8 +147,16 @@ class App extends Component {
                           padding: theme.spacing(6, 4),
                             background: '#eaeff1',
                         }}>
-            <Route exact path="/create" component={Content}/>
-            <Route path="/read" component={Read}/>
+
+            <NavLink activeClassName="active-link" to="/home"></NavLink>
+            <NavLink activeClassName="active-link" to="/inventory"></NavLink>
+
+            <NavLink to="/login"></NavLink>
+            <Route exact path="/login" component={LoginPage}/>
+
+            <Route exact path="/home" component={Home}/>
+            <ProtectedRoute path="/inventory" component={Inventory}/>
+
           </main>
         </div>
         </Fragment>

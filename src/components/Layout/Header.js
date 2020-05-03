@@ -15,15 +15,18 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
+import { useHistory } from 'react-router-dom';
 
 function Header() {
 
   const [openLogin, setOpenLogin] = React.useState(false)
-
+  const history = useHistory() 
+  
   const logout = () => {
     Cookies.remove("token")
     Cookies.remove("userDetails")
     setOpenLogout(false);
+    history.push("/home")
   };
 
   const handleLoginOpen = () => {
