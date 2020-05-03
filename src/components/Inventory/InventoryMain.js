@@ -73,6 +73,11 @@ function InventoryMain(props) {
   const handleCloseAlert = () => {
     setOpenAlert(false)
   }
+  
+  const handleRefresh = () => {
+    setPosts([])
+    listItems()
+  }
 
   const listItems = () => {axios.get('http://localhost:8000/api/item', {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
   .then(response =>{
@@ -101,7 +106,7 @@ function InventoryMain(props) {
             {posts &&
             <React.Fragment>
               <Tooltip title="Refresh">
-                <IconButton variant='contained' size="small" color="default" aria-label="refresh" onClick={() => listItems()}>
+                <IconButton variant='contained' size="small" color="default" aria-label="refresh" onClick={() => handleRefresh()}>
                     <RefreshIcon/>
                 </IconButton>
               </Tooltip>
