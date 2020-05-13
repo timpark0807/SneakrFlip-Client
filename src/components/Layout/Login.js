@@ -1,7 +1,6 @@
 
 import React from 'react'
 import Dialog from '@material-ui/core/Dialog';
-import Button from '@material-ui/core/Button';
 import Cookies from 'js-cookie'
 import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid'
@@ -11,8 +10,6 @@ import FacebookLogin from 'react-facebook-login';
 import GitHubLogin from 'react-github-login';
 import './Layout.css'
 import { useHistory } from 'react-router-dom';
-import { TwitterLogin } from "react-twitter-login";
-import { borders } from '@material-ui/system';
 
 function LoginDialog({openLogin, handleLoginClose}) {
     const history = useHistory() 
@@ -41,12 +38,6 @@ function LoginDialog({openLogin, handleLoginClose}) {
         >
 
         <DialogContent>
-            {/* <Typography 
-                variant="h6"
-                align="right">
-                    x
-            </Typography> */}
-
             <Grid container spacing={1}>
 
                 <Grid item xs={12}>

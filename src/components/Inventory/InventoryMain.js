@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import InventoryCreate from './InventoryCreate.js'
 import InventoryTable from './InventoryTable.js'
 import axios from 'axios'
@@ -17,7 +15,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Tooltip from '@material-ui/core/Tooltip';
 import Badge from '@material-ui/core/Badge'
 import IconButton from '@material-ui/core/IconButton'
-import Icon from '@material-ui/core/Icon'
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Button from '@material-ui/core/Button'
 
@@ -73,7 +70,7 @@ function InventoryMain(props) {
   const handleCloseAlert = () => {
     setOpenAlert(false)
   }
-  
+
   const handleRefresh = () => {
     setPosts([])
     listItems()
