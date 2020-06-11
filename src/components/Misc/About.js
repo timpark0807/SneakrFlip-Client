@@ -9,6 +9,8 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import EmailIcon from '@material-ui/icons/Email';
 
 const styles = (theme) => ({
     paper: {
@@ -89,6 +91,7 @@ function About(props) {
                     <Tab label="The Tech Stack" {...a11yProps(1)} />
                     <Tab label="Getting Started" {...a11yProps(2)} />
                     <Tab label="How It Works" {...a11yProps(3)} />
+                    <Tab label="Contact" {...a11yProps(4)} />
                 </Tabs>
             </AppBar>
             
@@ -147,9 +150,13 @@ function About(props) {
                         SneakrFlip was deployed to Amazon Web Services. 
                         Our frontend sits in an S3 bucket that serves static HTML/CSS/JS content to the user’s browser. 
                         Our backend API was deployed on an EC2 instance. 
-
                         <br/>
-
+                        <br/>
+                        In order to streamline the development/deployment process, I built an automated CI/CD pipeline using AWS CodePipeline. 
+                        A GitHub commit will trigger a build process via AWS Code Build. 
+                        Once the build is completed, Code Deploy will output the build files to the AWS S3 bucket. 
+                        This makes the deployment from localhost to the actual SneakrFlip.com website a seamless and automated process. 
+                        <br/>
                     </Typography>
 
                 </div>
@@ -176,7 +183,7 @@ function About(props) {
                 <br/>
                 Clicking buttons will programmatically send requests to the backend API. 
                 For example, submitting the popup from the “Create Item” button will send a PUT request with the item details 
-                and pressing the trash can icon will send a DELETE request for the item ID. 
+                and clicking the trash icon will send a DELETE request for the item. 
                 <br/>
                 <br/>
                 <img src={require('./Gifs/Functionality.gif')} alt="loading..." width="890" height="500" styles={{textAlign:"center"}}/>
@@ -192,6 +199,19 @@ function About(props) {
                 <br/>
             </TabPanel>
 
+            <TabPanel value={value} index={4}>
+                Contact me at timpark0807@gmail.com.
+                <br/>
+                <br/>
+
+                <div>
+                    <span classes={{verticalAlign:"middle"}}><GitHubIcon/></span> 
+                    <span><a href="https://github.com/timpark0807/PM-client"> GitHub Repo: Frontend React App</a></span>
+                </div>
+                <GitHubIcon/> <a href="https://github.com/timpark0807/PM-rest-api"> GitHub Repo: Backend GoLang REST API</a>
+                <br/>
+
+            </TabPanel>
 
         </Paper>
     );
