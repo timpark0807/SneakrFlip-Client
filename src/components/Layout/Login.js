@@ -16,9 +16,8 @@ function LoginDialog({openLogin, handleLoginClose}) {
 
     const responseGoogle = response => {
         console.log(response)
-        console.log(response.tc)
-
-        Cookies.set("token", response.tc.access_token, {sameSite: 'lax' })
+        console.log(response.wc.access_token)
+        Cookies.set("token", response.wc.access_token, {sameSite: 'lax' })
         Cookies.set("userDetails", response.profileObj.imageUrl)
         handleLoginClose()
         history.push("/inventory")
