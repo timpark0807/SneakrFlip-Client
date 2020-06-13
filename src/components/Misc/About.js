@@ -138,7 +138,7 @@ function About(props) {
                     <Typography>
                         <b>Frontend</b>
                         <br/>
-                        The frontend is a single page application written in React.js. 
+                        The SneakrFlip frontend is a single page application written in React.js. 
                         The Material UI library was used to help style the components.  
                         Our front end application provides an interface for users to consume the backend API endpoints. 
                     </Typography>
@@ -149,16 +149,23 @@ function About(props) {
                         <br/>
                         SneakrFlip was deployed to Amazon Web Services. 
                         Our frontend sits in an S3 bucket that serves static HTML/CSS/JS content to the user’s browser. 
-                        Our backend API was deployed on an EC2 instance. 
-                        <br/>
-                        <br/>
-                        In order to streamline the development/deployment process, I built an automated CI/CD pipeline using AWS CodePipeline. 
-                        A GitHub commit will trigger a build process via AWS Code Build. 
-                        Once the build is completed, Code Deploy will output the build files to the AWS S3 bucket. 
-                        This makes the deployment from localhost to the actual SneakrFlip.com website a seamless and automated process. 
+                        Our backend API was deployed to a group of Auto Scaling EC2 instances. 
+                        A load balancer sits in between the frontend/backend to distribute requests evenly between instances. 
+                        <br/><br/>
+                        <img src={require('./Gifs/Diagram.png')} alt="loading..." width="890" height="500" styles={{textAlign:"center"}}/>
                         <br/>
                     </Typography>
 
+                    <Typography>
+                        <b>CI/CD</b>
+                        <br/>
+                        In order to streamline the development/deployment process, I built an automated CI/CD pipeline using AWS CodePipeline. 
+                        <br/><br/>
+                        A GitHub commit will trigger a build process via AWS Code Build. 
+                        Once the build is completed, Code Deploy will output the build files to the AWS S3 bucket. 
+                        Every git push to the master branch will automatically deploy to the live SneakrFlip.com website. 
+                        <br/>
+                    </Typography>
                 </div>
             </TabPanel>
             <TabPanel value={value} index={2}>
