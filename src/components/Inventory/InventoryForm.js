@@ -37,7 +37,7 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
     const handleSubmitCreate = (event) => {
         handleOpenAlert("Your item has been created!")
 
-        Axios.post("http://localhost:8000/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
+        Axios.post("http://api.sneakrflip.com/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
         .then(response => {
             event.preventDefault()            
             onClose()
@@ -52,7 +52,7 @@ function InventoryForm({action, post_id, listItems, onClose, handleOpenAlert}) {
     const handleSubmitEdit = (event) => {
         handleOpenAlert("Your item has been edited!")
 
-        Axios.put("http://localhost:8000/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
+        Axios.put("http://api.sneakrflip.com/api/item",  fields, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
         .then(response => {
             event.preventDefault()            
             onClose()

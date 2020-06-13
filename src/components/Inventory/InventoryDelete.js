@@ -14,7 +14,7 @@ function InventoryDelete({openDelete, handleClose, post_id, listItems, handleOpe
 
     const handleDelete = (post_id) => {
           handleOpenAlert("Your item has been deleted!")
-          axios.delete("http://localhost:8000/api/item/" + post_id, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
+          axios.delete("http://api.sneakrflip.com/api/item/" + post_id, {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
           .then(response => {
               listItems()
               console.log(response)

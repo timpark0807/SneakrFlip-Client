@@ -76,7 +76,7 @@ function InventoryMain(props) {
     listItems()
   }
 
-  const listItems = () => {axios.get('http://localhost:8000/api/item', {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
+  const listItems = () => {axios.get('http://api.sneakrflip.com/api/item', {headers: {"Authorization":"Bearer " + Cookies.get("token")}})
   .then(response =>{
       setPosts(response.data)
   })
