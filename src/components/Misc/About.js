@@ -102,7 +102,7 @@ function About(props) {
                     </Typography>
                     <br></br>
                     <Typography>
-                        My name is Tim Park. SneakrFlip is a personal project I developed to showcase my software engineering skill set.
+                        My name is Tim Park and I developed SneakrFlip as a personal project to showcase my software engineering skill set.
                     </Typography>   
                     <br></br>
                     <Typography>
@@ -200,7 +200,8 @@ function About(props) {
             </TabPanel>
 
             <TabPanel value={value} index={4}>
-                Contact me at timpark0807@gmail.com.
+                <b>Contact:</b>
+                timpark0807@gmail.com.
                 <br/>
                 <br/>
 
