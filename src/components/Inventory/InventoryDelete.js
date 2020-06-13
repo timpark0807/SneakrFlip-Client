@@ -28,11 +28,10 @@ function InventoryDelete({openDelete, handleClose, post_id, listItems, handleOpe
     <Dialog 
         open={openDelete} 
         onClose={handleClose} 
-        overlayStyle={{backgroundColor: 'transparent'}}
         aria-labelledby="form-dialog-title"
         aria-describedby="alert-dialog-description" 
         maxWidth="sm" 
-        fullWidth="true"
+        fullWidth={true}
         >
 
     <DialogTitle id="alert-dialog-title">

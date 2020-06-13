@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
@@ -19,7 +19,7 @@ import { useHistory } from 'react-router-dom';
 
 function Header() {
 
-  const [openLogin, setOpenLogin] = React.useState(false)
+  const [openLogin, setOpenLogin] = useState(false)
   const history = useHistory() 
   
   const logout = () => {
@@ -37,8 +37,8 @@ function Header() {
     setOpenLogin(false)
   }
 
-  const [openLogout, setOpenLogout] = React.useState(false);
-  const anchorRef = React.useRef(null);
+  const [openLogout, setOpenLogout] = useState(false);
+  const anchorRef = useRef(null);
 
   const handleToggle = () => {
     setOpenLogout((prevOpen) => !prevOpen);

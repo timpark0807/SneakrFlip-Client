@@ -1,16 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import EmailIcon from '@material-ui/icons/Email';
 
 const styles = (theme) => ({
     paper: {
@@ -68,13 +64,6 @@ function TabPanel(props) {
     };
   }
   
-  const useStyles = makeStyles((theme) => ({
-    root: {
-    //   flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
-    },
-  }));
-  
 function About(props) {
     const { classes } = props;
     const [value, setValue] = React.useState(0);
@@ -94,80 +83,57 @@ function About(props) {
                     <Tab label="Contact" {...a11yProps(4)} />
                 </Tabs>
             </AppBar>
-            
+
             <TabPanel value={value} index={0}>
-                <div>
-                    <Typography>
-                    <b>Welcome! </b> 
-                    </Typography>
-                    <br></br>
-                    <Typography>
-                        My name is Tim Park and I developed SneakrFlip as a personal project to showcase my software engineering skill set.
-                    </Typography>   
-                    <br></br>
-                    <Typography>
-                        One of my hobbies as a teenager was reselling sneakers and other limited edition items. 
-                        One problem I frequently encountered was how to consistently track my inventory. 
-                        I would use a combination of iPhone notes, Excel workbooks, and my memory - which never worked too well. 
-                    </Typography>
-                    <br></br>
-                    <Typography>
-                        Once I discovered my passion for software development, I knew I wanted to make apps relating to my existing hobbies. 
-                        So it was a no brainer to draw from my previous expereince as a sneaker reseller and create a centralized inventory management application. 
-                    </Typography>
-                    <br></br>
-                    <Typography>
-                        Click the header tabs to learn more about SneakrFlip!
-                    </Typography>
-                </div>
+                  <b>Welcome! </b> 
+                  <br/>
+                      My name is Tim Park and I developed SneakrFlip as a personal project to showcase my software engineering skill set.
+                  <br/><br/>
+                      One of my hobbies as a teenager was reselling sneakers and other limited edition items. 
+                      One problem I frequently encountered was how to consistently track my inventory. 
+                      I would use a combination of iPhone notes, Excel workbooks, and my memory - which never worked too well. 
+                  <br/><br/>
+                      Once I discovered my passion for software development, I knew I wanted to make apps relating to my existing hobbies. 
+                      So it was a no brainer to draw from my previous expereince as a sneaker reseller and create a centralized inventory management application. 
+                  <br/><br/>
+                      Click the header tabs to learn more about SneakrFlip!
 
             </TabPanel>
+
             <TabPanel value={value} index={1}>
-                <div>
+                <b>Backend</b>
+                <br/>
+                The SneakrFlip backend is written in GoLang.
+                This features a RESTful API service that allows users to create, read, update, and delete records via HTTP requests. 
+                The backend is integrated with oAuth to handle authentication and verify requests are authorized. 
+                Data is stored in MongoDB.
+                <br/><br/>
+                <b>Frontend</b>
+                <br/>
+                The SneakrFlip frontend is a single page application written in React.js. 
+                The Material UI library was used to help style the components.  
+                Our front end application provides an interface for users to consume the backend API endpoints. 
+                <br/><br/>
+                <b>Deployment</b>
+                <br/>
+                SneakrFlip was deployed to Amazon Web Services. 
+                Our frontend sits in an S3 bucket that serves static HTML/CSS/JS content to the user’s browser. 
+                Our backend API was deployed to a group of Auto Scaling EC2 instances. 
+                A load balancer sits in between the frontend/backend to distribute requests evenly between instances. 
+                <br/><br/>
+                <img src={require('./Gifs/Diagram.png')} alt="loading..." width="890" height="500" styles={{textAlign:"center"}}/>
+                <br/><br/>
+                <b>CI/CD</b>
+                <br/>
+                In order to streamline the development/deployment process, I built an automated CI/CD pipeline using AWS CodePipeline. 
+                <br/><br/>
+                A GitHub commit will trigger a build process via AWS Code Build. 
+                Once the build is completed, Code Deploy will output the build files to the AWS S3 bucket. 
+                Every git push to the master branch will automatically deploy to the live SneakrFlip.com website. 
+                <br/>
 
-                    <Typography>
-                        <b>Backend</b>
-                        <br/>
-                        The SneakrFlip backend is written in GoLang.
-                        This features a RESTful API service that allows users to create, read, update, and delete records via HTTP requests. 
-                        The backend is integrated with oAuth to handle authentication and verify requests are authorized. 
-                        Data is stored in MongoDB.
-                    </Typography>
-
-                    <br/>
-                    <Typography>
-                        <b>Frontend</b>
-                        <br/>
-                        The SneakrFlip frontend is a single page application written in React.js. 
-                        The Material UI library was used to help style the components.  
-                        Our front end application provides an interface for users to consume the backend API endpoints. 
-                    </Typography>
-
-                    <br/>
-                    <Typography>
-                        <b>Deployment</b>
-                        <br/>
-                        SneakrFlip was deployed to Amazon Web Services. 
-                        Our frontend sits in an S3 bucket that serves static HTML/CSS/JS content to the user’s browser. 
-                        Our backend API was deployed to a group of Auto Scaling EC2 instances. 
-                        A load balancer sits in between the frontend/backend to distribute requests evenly between instances. 
-                        <br/><br/>
-                        <img src={require('./Gifs/Diagram.png')} alt="loading..." width="890" height="500" styles={{textAlign:"center"}}/>
-                        <br/>
-                    </Typography>
-
-                    <Typography>
-                        <b>CI/CD</b>
-                        <br/>
-                        In order to streamline the development/deployment process, I built an automated CI/CD pipeline using AWS CodePipeline. 
-                        <br/><br/>
-                        A GitHub commit will trigger a build process via AWS Code Build. 
-                        Once the build is completed, Code Deploy will output the build files to the AWS S3 bucket. 
-                        Every git push to the master branch will automatically deploy to the live SneakrFlip.com website. 
-                        <br/>
-                    </Typography>
-                </div>
             </TabPanel>
+
             <TabPanel value={value} index={2}>
                 <b>Logging in</b>
                 <br/>
@@ -181,6 +147,7 @@ function About(props) {
                 <img src={require('./Gifs/Login.gif')} alt="loading..." width="890" height="500" styles={{textAlign:"center"}}/>
                 <br/>
             </TabPanel>
+
             <TabPanel value={value} index={3}>
                 <b>CRUD Functionality</b>
                 <br/>
@@ -207,18 +174,10 @@ function About(props) {
             </TabPanel>
 
             <TabPanel value={value} index={4}>
-                <b>Contact:</b>
-                timpark0807@gmail.com.
-                <br/>
-                <br/>
-
-                <div>
-                    <span classes={{verticalAlign:"middle"}}><GitHubIcon/></span> 
-                    <span><a href="https://github.com/timpark0807/PM-client"> GitHub Repo: Frontend React App</a></span>
-                </div>
-                <GitHubIcon/> <a href="https://github.com/timpark0807/PM-rest-api"> GitHub Repo: Backend GoLang REST API</a>
-                <br/>
-
+              <b>Getting in Touch</b>
+              <br/>
+                You can reach out to me at timpark0807@gmail.com.
+              <br/>
             </TabPanel>
 
         </Paper>

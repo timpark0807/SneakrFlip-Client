@@ -22,10 +22,10 @@ import './styles.css';
 
 function InventoryTable({listItems, posts, handleOpenAlert}) {
     
-    const [openDelete, setOpenDelete] = React.useState(false)
-    const [openEdit, setOpenEdit] = React.useState(false)
-    const [deleteID, setDeleteID] = React.useState('')
-    const [editID, setEditID] = React.useState('')
+    const [openDelete, setOpenDelete] = useState(false)
+    const [openEdit, setOpenEdit] = useState(false)
+    const [deleteID, setDeleteID] = useState('')
+    const [editID, setEditID] = useState('')
 
     // load database entries when page loads
     useEffect(() => listItems(), [])
